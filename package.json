@@ -1,0 +1,20 @@
+{
+  "name": "constraint-network-coffee",
+  "version": "1.0.0",
+  "description": "coffee practice",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "coffee-script": "^1.8.0",
+    "espower-coffee": "^0.10.0",
+    "power-assert": "^0.10.1"
+  },
+  "directories": {
+    "src": "src/",
+    "test": "test/"
+  }
+}
