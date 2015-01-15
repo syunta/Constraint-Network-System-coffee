@@ -18,3 +18,9 @@ describe 'Verify primitive procedure', ->
     target = _.cons 1, 3
     _.setCdr target, 7
     assert _.cdr(target) is 7
+
+describe 'Verify compound object', ->
+  it 'should return 2 and 1', ->
+    target = (_.cons 3,(_.cons 2,(_.cons 1,null)))
+    assert (_.cadr target) is 2
+    assert (_.car (_.cddr target)) is 1

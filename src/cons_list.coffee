@@ -16,9 +16,14 @@ cdr = (z) -> z "cdr"
 setCar = (z, newValue) -> ((z "setCar") newValue)
 setCdr = (z, newValue) -> ((z "setCdr") newValue)
 
+cadr = (z) -> (car (cdr z))
+cddr = (z) -> (cdr (cdr z))
+
 module.exports =
   cons: cons
   car : car
   cdr : cdr
+  cadr : cadr
+  cddr : cddr
   setCar : setCar
   setCdr : setCdr
