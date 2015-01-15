@@ -10,3 +10,11 @@ describe 'Verify primitive procedure', ->
   it 'should return 3', ->
     target = _.cons 1, 3
     assert _.cdr(target) is 3
+  it 'should return 5', ->
+    target = _.cons 1, 3
+    _.setCar target, 5
+    assert _.car(target) is 5
+  it 'should return 7', ->
+    target = _.cons 1, 3
+    _.setCdr target, 7
+    assert _.cdr(target) is 7
