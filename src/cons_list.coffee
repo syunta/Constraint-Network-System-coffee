@@ -19,6 +19,14 @@ setCdr = (z, newValue) -> ((z "setCdr") newValue)
 cadr = (z) -> (car (cdr z))
 cddr = (z) -> (cdr (cdr z))
 
+memq = (item, x) ->
+  if x is null
+    false
+  else if item is car x
+    x
+  else
+    (memq item, (cdr x))
+
 module.exports =
   cons: cons
   car : car
@@ -27,3 +35,4 @@ module.exports =
   cddr : cddr
   setCar : setCar
   setCdr : setCdr
+  memq : memq

@@ -24,3 +24,11 @@ describe 'Verify compound object', ->
     target = (_.cons 3,(_.cons 2,(_.cons 1,null)))
     assert (_.cadr target) is 2
     assert (_.car (_.cddr target)) is 1
+
+describe 'Verify compound procedures', ->
+  describe 'memq', ->
+    target = (_.cons 3,(_.cons 2,(_.cons 1,null)))
+    it 'should return 1', ->
+      assert (_.car (_.memq 1, target)) is 1
+    it 'should return false', ->
+      assert (_.memq 4, target) is false
