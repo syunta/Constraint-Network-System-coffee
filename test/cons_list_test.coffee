@@ -32,3 +32,14 @@ describe 'Verify compound procedures', ->
       assert (_.car (_.memq 1, target)) is 1
     it 'should return false', ->
       assert (_.memq 4, target) is false
+  describe 'forEachExcept', ->
+    a = (_.cons 3, null)
+    b = (_.cons 2, null)
+    c = (_.cons 1, null)
+    target = (_.cons a, (_.cons b, (_.cons c, null)))
+    it 'should return ((3) (5) (4))', ->
+      f = (x) -> (_.setCar x, ((_.car x) + 3))
+      _.forEachExcept a, f, target
+      assert (_.car (_.car target)) is 3
+      assert (_.car (_.car (_.cdr target))) is 5
+      assert (_.car (_.car (_.cddr target))) is 4

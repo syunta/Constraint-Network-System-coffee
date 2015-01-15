@@ -27,6 +27,17 @@ memq = (item, x) ->
   else
     (memq item, (cdr x))
 
+forEachExcept = (exception, procedure, list) ->
+  go = (items) ->
+    if items is null
+      "done"
+    else if (car items) is exception
+      (go (cdr items))
+    else
+      (procedure (car items))
+      (go (cdr items))
+  go list
+
 module.exports =
   cons: cons
   car : car
@@ -36,3 +47,4 @@ module.exports =
   setCar : setCar
   setCdr : setCdr
   memq : memq
+  forEachExcept: forEachExcept
