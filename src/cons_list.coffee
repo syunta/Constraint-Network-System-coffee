@@ -38,13 +38,12 @@ forEachExcept = (exception, procedure, list) ->
       (go (cdr items))
   go list
 
-module.exports =
-  cons: cons
-  car : car
-  cdr : cdr
-  cadr : cadr
-  cddr : cddr
-  setCar : setCar
-  setCdr : setCdr
-  memq : memq
-  forEachExcept: forEachExcept
+module.exports.cons = cons
+module.exports.car = car
+module.exports.cdr = cdr
+module.exports.cadr = cadr
+module.exports.cddr = cddr
+module.exports.setCar = setCar
+module.exports.setCdr = setCdr
+module.exports.memq = memq
+module.exports.forEachExcept = forEachExcept
