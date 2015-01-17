@@ -36,10 +36,20 @@ describe 'Verify syntax interface', ->
       assert (getValue c) is (c "value")
 
 describe 'Verify connector', ->
-  c = do _.makeConnector
   describe 'when request is has-value?', ->
     it 'should return false', ->
+      c = do _.makeConnector
       assert (c "has-value?") is false
   describe 'when request is value', ->
     it 'should return false', ->
+      c = do _.makeConnector
       assert (c "value") is false
+  describe 'when request is set-value!', ->
+    c = do _.makeConnector
+    ((c "set-value!") 1, 'tester')
+    it 'should return 1', ->
+      assert (c "value") is 1
+    it 'should has value and informant', ->
+      assert (c "has-value?") is true
+    it 'should be ignored', ->
+      assert ((c "set-value!") 1, 'tester') is "ignored"

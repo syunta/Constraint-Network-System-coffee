@@ -30,7 +30,17 @@ adder = (a1, a2, sum) ->
 
 makeConnector = () ->
   do (value = false, informant = false, constraints = null) ->
-    setMyValue = () -> #TODO
+    setMyValue = (newval, setter) ->
+      if not (hasValue me)
+        value = newval
+        informant = setter
+        forEachExcept setter,
+                      informAboutValue,
+                      constraints
+      else if value isnt newval
+        throw new Error "Contradiction (#{value} #{newval})"
+      else
+        "ignored"
     forgetMyValue = () -> #TODO
     connect = () -> #TODO
     me = (request) ->
