@@ -30,6 +30,7 @@ adder = (a1, a2, sum) ->
 
 makeConnector = () ->
   do (value = false, informant = false, constraints = null) ->
+
     setMyValue = (newval, setter) ->
       if not (hasValue me)
         value = newval
@@ -41,8 +42,18 @@ makeConnector = () ->
         throw new Error "Contradiction (#{value} #{newval})"
       else
         "ignored"
-    forgetMyValue = () -> #TODO
+
+    forgetMyValue = (retractor) ->
+      if retractor is informant
+        informant = false
+        forEachExcept retractor,
+                      informAboutNoValue,
+                      constraints
+      else
+        "ignored"
+
     connect = () -> #TODO
+
     me = (request) ->
       switch request
         when "has-value?"

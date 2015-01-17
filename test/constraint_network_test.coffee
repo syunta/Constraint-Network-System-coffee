@@ -27,7 +27,7 @@ describe 'Verify syntax interface', ->
     it 'should be equal', ->
       target = _.adder dummy,dummy,dummy
       assert (informAboutNoValue target) is (target "I-lost-my-value")
-  
+
   c = do _.makeConnector
   describe 'hasValue', ->
     it 'should be equal', ->
@@ -53,3 +53,11 @@ describe 'Verify connector', ->
       assert (c "has-value?") is true
     it 'should be ignored', ->
       assert ((c "set-value!") 1, 'tester') is "ignored"
+  describe 'when request is forget', ->
+    c = do _.makeConnector
+    it 'should be ignored', ->
+      assert ((c "forget") 'tester') is "ignored"
+    it 'should return false', ->
+      ((c "set-value!") 1, 'tester')
+      ((c "forget") 'tester')
+      assert (c "has-value?") is false
