@@ -27,7 +27,10 @@ describe 'Verify syntax interface', ->
       assert (informAboutNoValue target) is (target "I-lost-my-value")
 
 describe 'Verify connector', ->
+  c = do _.makeConnector
+  describe 'when request is has-value?', ->
+    it 'should return false', ->
+      assert (c "has-value?") is false
   describe 'when request is value', ->
     it 'should return false', ->
-      c = do _.makeConnector
       assert (c "value") is false

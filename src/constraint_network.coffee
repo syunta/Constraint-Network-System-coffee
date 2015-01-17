@@ -29,10 +29,12 @@ makeConnector = () ->
     connect = () -> #TODO
     me = (request) ->
       switch request
-        when "value"    then value
-        when "setValue" then setMyValue
-        when "forget"   then forgetMyValue
-        when "connect"  then connect
+        when "has-value?"
+          if informant then true else false
+        when "value"      then value
+        when "set-value!" then setMyValue
+        when "forget"     then forgetMyValue
+        when "connect"    then connect
         else throw new Error "Unknown operation -- CONNECTOR"
     me
 
