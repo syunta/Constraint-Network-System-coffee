@@ -12,6 +12,12 @@ informAboutValue = (constraint) ->
 informAboutNoValue = (constraint) ->
   constraint "I-lost-my-value"
 
+hasValue = (connector) ->
+  connector "has-value?"
+
+getValue = (connector) ->
+  connector "value"
+
 adder = (a1, a2, sum) ->
   processNewValue = () -> #TODO
   processForgetValue = () -> #TODO
@@ -42,3 +48,5 @@ module.exports.makeConnector = makeConnector
 module.exports.adder = adder
 module.exports.informAboutValue = informAboutValue
 module.exports.informAboutNoValue = informAboutNoValue
+module.exports.hasValue = hasValue
+module.exports.getValue = getValue

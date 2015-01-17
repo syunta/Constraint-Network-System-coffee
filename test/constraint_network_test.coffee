@@ -11,6 +11,8 @@ forEachExcept = require('../src/cons_list_proc').forEachExcept
 _ = require '../src/constraint_network'
 informAboutValue = require('../src/constraint_network').informAboutValue
 informAboutNoValue = require('../src/constraint_network').informAboutNoValue
+hasValue = require('../src/constraint_network').hasValue
+getValue = require('../src/constraint_network').getValue
 
 assert = require 'power-assert'
 
@@ -25,6 +27,13 @@ describe 'Verify syntax interface', ->
     it 'should be equal', ->
       target = _.adder dummy,dummy,dummy
       assert (informAboutNoValue target) is (target "I-lost-my-value")
+  
+  c = do _.makeConnector
+  describe 'hasValue', ->
+    it 'should be equal', ->
+      assert (hasValue c) is (c "has-value?")
+    it 'should be equal', ->
+      assert (getValue c) is (c "value")
 
 describe 'Verify connector', ->
   c = do _.makeConnector
