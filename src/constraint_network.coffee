@@ -24,6 +24,9 @@ setValue = (connector, newValue, informant) ->
 forgetValue = (connector, retractor) ->
   ((connector 'forget') retractor)
 
+connect = (connector, newConstraint) ->
+  ((connector 'connect') newConstraint)
+
 adder = (a1, a2, sum) ->
   processNewValue = () -> #TODO
   processForgetValue = () -> #TODO
@@ -85,3 +88,4 @@ module.exports.hasValue = hasValue
 module.exports.getValue = getValue
 module.exports.setValue = setValue
 module.exports.forgetValue = forgetValue
+module.exports.connect = connect

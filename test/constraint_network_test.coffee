@@ -15,6 +15,7 @@ hasValue = require('../src/constraint_network').hasValue
 getValue = require('../src/constraint_network').getValue
 setValue = require('../src/constraint_network').setValue
 forgetValue = require('../src/constraint_network').forgetValue
+connect = require('../src/constraint_network').connect
 
 assert = require 'power-assert'
 
@@ -54,6 +55,12 @@ describe 'Verify syntax interface', ->
       (setValue c, 1, 'tester')
       (forgetValue c, 'not tester')
       assert (c 'has-value?') is true
+  describe 'connect', ->
+    it 'should be equal', ->
+      c = do _.makeConnector
+      a = _.adder dummy,dummy,dummy
+      (connect c, a)
+      assert (car (c 'constraints')) is a
 
 describe 'Verify connector', ->
   describe 'when request is has-value?', ->
@@ -82,8 +89,8 @@ describe 'Verify connector', ->
       ((c 'forget') 'tester')
       assert (c 'has-value?') is false
   describe 'when request is connect', ->
-    c = do _.makeConnector
     it 'should add constraint', ->
+      c = do _.makeConnector
       target1 = _.adder dummy,dummy,dummy
       target2 = _.adder dummy,dummy,dummy
       ((c 'connect') target1)
