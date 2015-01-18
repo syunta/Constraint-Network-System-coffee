@@ -9,6 +9,7 @@ memq = require('../src/cons_list_proc').memq
 forEachExcept = require('../src/cons_list_proc').forEachExcept
 
 _ = require '../src/constraint_network'
+_.doNothing = require('./do_nothing_constraint').doNothing
 informAboutValue = require('../src/constraint_network').informAboutValue
 informAboutNoValue = require('../src/constraint_network').informAboutNoValue
 hasValue = require('../src/constraint_network').hasValue
@@ -19,17 +20,15 @@ connect = require('../src/constraint_network').connect
 
 assert = require 'power-assert'
 
-dummy = '' # debuging code
-
 describe 'Verify syntax interface', ->
   describe 'informAboutValue', ->
     it 'should be equal', ->
-      target = _.adder dummy,dummy,dummy
-      assert (informAboutValue target) is (target 'I-have-a-value')
+      n = _.doNothing 'c'
+      assert (informAboutValue n) is (n 'I-have-a-value')
   describe 'informAboutNoValue', ->
     it 'should be equal', ->
-      target = _.adder dummy,dummy,dummy
-      assert (informAboutNoValue target) is (target 'I-lost-my-value')
+      n = _.doNothing 'c'
+      assert (informAboutNoValue n) is (n 'I-lost-my-value')
 
   describe 'hasValue', ->
     c = do _.makeConnector
@@ -58,9 +57,9 @@ describe 'Verify syntax interface', ->
   describe 'connect', ->
     it 'should be equal', ->
       c = do _.makeConnector
-      a = _.adder dummy,dummy,dummy
-      (connect c, a)
-      assert (car (c 'constraints')) is a
+      d = _.doNothing c
+      (connect c, d)
+      assert (car (c 'constraints')) is d
 
 describe 'Verify connector', ->
   describe 'when request is has-value?', ->
@@ -91,8 +90,8 @@ describe 'Verify connector', ->
   describe 'when request is connect', ->
     it 'should add constraint', ->
       c = do _.makeConnector
-      target1 = _.adder dummy,dummy,dummy
-      target2 = _.adder dummy,dummy,dummy
+      target1 = _.doNothing c
+      target2 = _.doNothing c
       ((c 'connect') target1)
       ((c 'connect') target2)
       assert (car (c 'constraints')) is target2
