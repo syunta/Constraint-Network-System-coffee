@@ -61,3 +61,12 @@ describe 'Verify connector', ->
       ((c "set-value!") 1, 'tester')
       ((c "forget") 'tester')
       assert (c "has-value?") is false
+  describe 'when request is connect', ->
+    c = do _.makeConnector
+    it 'should add constraint', ->
+      target1 = _.adder dummy,dummy,dummy
+      target2 = _.adder dummy,dummy,dummy
+      ((c "connect") target1)
+      ((c "connect") target2)
+      assert (car (c "constraints")) is target2
+      assert (cadr (c "constraints")) is target1

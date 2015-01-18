@@ -52,7 +52,12 @@ makeConnector = () ->
       else
         "ignored"
 
-    connect = () -> #TODO
+    connect = (newConstraint) ->
+      if not (memq newConstraint, constraints)
+        constraints = (cons newConstraint, constraints)
+      if (hasValue me)
+        informAboutValue newConstraint
+      "done"
 
     me = (request) ->
       switch request
