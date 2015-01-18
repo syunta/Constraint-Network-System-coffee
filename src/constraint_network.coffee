@@ -21,6 +21,9 @@ getValue = (connector) ->
 setValue = (connector, newValue, informant) ->
   ((connector 'set-value!') newValue, informant)
 
+forgetValue = (connector, retractor) ->
+  ((connector 'forget') retractor)
+
 adder = (a1, a2, sum) ->
   processNewValue = () -> #TODO
   processForgetValue = () -> #TODO
@@ -81,3 +84,4 @@ module.exports.informAboutNoValue = informAboutNoValue
 module.exports.hasValue = hasValue
 module.exports.getValue = getValue
 module.exports.setValue = setValue
+module.exports.forgetValue = forgetValue
