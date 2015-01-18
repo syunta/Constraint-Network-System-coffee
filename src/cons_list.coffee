@@ -3,18 +3,18 @@ cons = (x, y) ->
   setY = (v) -> y = v
   dispatch = (m) ->
     switch m
-      when "car"    then x
-      when "cdr"    then y
-      when "setCar" then setX
-      when "setCdr" then setY
-      else throw new Error "Undefined operation -- CONS"
+      when 'car'    then x
+      when 'cdr'    then y
+      when 'setCar' then setX
+      when 'setCdr' then setY
+      else throw new Error "Undefined operation -- CONS #{m}"
   dispatch
 
-car = (z) -> z "car"
-cdr = (z) -> z "cdr"
+car = (z) -> z 'car'
+cdr = (z) -> z 'cdr'
 
-setCar = (z, newValue) -> ((z "setCar") newValue)
-setCdr = (z, newValue) -> ((z "setCdr") newValue)
+setCar = (z, newValue) -> ((z 'setCar') newValue)
+setCdr = (z, newValue) -> ((z 'setCdr') newValue)
 
 cadr = (z) -> (car (cdr z))
 cddr = (z) -> (cdr (cdr z))

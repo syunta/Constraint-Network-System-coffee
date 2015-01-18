@@ -7,28 +7,28 @@ memq = require('./cons_list_proc').memq
 forEachExcept = require('./cons_list_proc').forEachExcept
 
 informAboutValue = (constraint) ->
-  constraint "I-have-a-value"
+  constraint 'I-have-a-value'
 
 informAboutNoValue = (constraint) ->
-  constraint "I-lost-my-value"
+  constraint 'I-lost-my-value'
 
 hasValue = (connector) ->
-  connector "has-value?"
+  connector 'has-value?'
 
 getValue = (connector) ->
-  connector "value"
+  connector 'value'
 
 setValue = (connector, newValue, informant) ->
-  ((connector "set-value!") newValue, informant)
+  ((connector 'set-value!') newValue, informant)
 
 adder = (a1, a2, sum) ->
   processNewValue = () -> #TODO
   processForgetValue = () -> #TODO
   me = (request) ->
     switch request
-      when "I-have-a-value"  then processNewValue
-      when "I-lost-my-value" then processForgetValue
-      else throw new Error "Unknown request -- ADDER"
+      when 'I-have-a-value'  then processNewValue
+      when 'I-lost-my-value' then processForgetValue
+      else throw new Error "Unknown request -- ADDER #{request}"
   me
 
 makeConnector = () ->
@@ -44,7 +44,7 @@ makeConnector = () ->
       else if value isnt newval
         throw new Error "Contradiction (#{value} #{newval})"
       else
-        "ignored"
+        'ignored'
 
     forgetMyValue = (retractor) ->
       if retractor is informant
@@ -53,25 +53,25 @@ makeConnector = () ->
                       informAboutNoValue,
                       constraints
       else
-        "ignored"
+        'ignored'
 
     connect = (newConstraint) ->
       if not (memq newConstraint, constraints)
         constraints = (cons newConstraint, constraints)
       if (hasValue me)
         informAboutValue newConstraint
-      "done"
+      'done'
 
     me = (request) ->
       switch request
-        when "has-value?"
+        when 'has-value?'
           if informant then true else false
-        when "value"       then value
-        when "constraints" then constraints # open for test code
-        when "set-value!"  then setMyValue
-        when "forget"      then forgetMyValue
-        when "connect"     then connect
-        else throw new Error "Unknown operation -- CONNECTOR"
+        when 'value'       then value
+        when 'constraints' then constraints # open for test code
+        when 'set-value!'  then setMyValue
+        when 'forget'      then forgetMyValue
+        when 'connect'     then connect
+        else throw new Error "Unknown operation -- CONNECTOR #{request}"
     me
 
 module.exports.makeConnector = makeConnector
