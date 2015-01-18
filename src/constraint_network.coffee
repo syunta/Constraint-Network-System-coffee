@@ -58,10 +58,11 @@ makeConnector = () ->
       switch request
         when "has-value?"
           if informant then true else false
-        when "value"      then value
-        when "set-value!" then setMyValue
-        when "forget"     then forgetMyValue
-        when "connect"    then connect
+        when "value"       then value
+        when "constraints" then constraints # open for test code
+        when "set-value!"  then setMyValue
+        when "forget"      then forgetMyValue
+        when "connect"     then connect
         else throw new Error "Unknown operation -- CONNECTOR"
     me
 
