@@ -61,7 +61,7 @@ makeConnector = ->
       else
         'ignored'
 
-    connect = (newConstraint) ->
+    connectMe = (newConstraint) ->
       if not (memq newConstraint, constraints)
         constraints = (cons newConstraint, constraints)
       if (hasValue me)
@@ -76,7 +76,7 @@ makeConnector = ->
         when 'constraints' then constraints # open for test code
         when 'set-value!'  then setMyValue
         when 'forget'      then forgetMyValue
-        when 'connect'     then connect
+        when 'connect'     then connectMe
         else throw new Error "Unknown operation -- CONNECTOR #{request}"
     me
 
