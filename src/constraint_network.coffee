@@ -41,11 +41,15 @@ adder = (a1, a2, sum) ->
       setValue a1,
                (getValue sum) - (getValue a2),
                me
-  processForgetValue = -> #TODO
+  processForgetValue = ->
+    forgetValue sum, me
+    forgetValue a1, me
+    forgetValue a2, me
+    do processNewValue
   me = (request) ->
     switch request
       when 'I-have-a-value'  then do processNewValue
-      when 'I-lost-my-value' then processForgetValue
+      when 'I-lost-my-value' then do processForgetValue
       else throw new Error "Unknown request -- ADDER #{request}"
   (connect a1, me)
   (connect a2, me)

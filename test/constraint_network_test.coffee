@@ -127,3 +127,26 @@ describe 'Verify adder is constaraint', ->
       setValue sum, 5, 'tester'
       setValue c1, 1, 'tester'
       assert (getValue c2) is 4
+  describe 'when request is I-lost-my-value', ->
+    it 'should set value false', ->
+      c1 = do makeConnector
+      c2 = do makeConnector
+      sum = do makeConnector
+      adder c1, c2, sum
+      setValue c1, 1, 'tester'
+      setValue c2, 4, 'tester'
+      forgetValue c1, 'tester'
+      forgetValue c2, 'tester'
+      assert (hasValue c1) is false
+      assert (hasValue c2) is false
+      assert (hasValue sum) is false
+    it 'should be same setter to forget value', ->
+      c1 = do makeConnector
+      c2 = do makeConnector
+      sum = do makeConnector
+      adder c1, c2, sum
+      setValue c1, 1, 'tester'
+      setValue c2, 4, 'tester'
+      forgetValue c1, 'tester'
+      assert (hasValue c1) is false
+      assert (hasValue c2) is true
