@@ -28,8 +28,8 @@ connect = (connector, newConstraint) ->
   ((connector 'connect') newConstraint)
 
 adder = (a1, a2, sum) ->
-  processNewValue = () -> #TODO
-  processForgetValue = () -> #TODO
+  processNewValue = -> #TODO
+  processForgetValue = -> #TODO
   me = (request) ->
     switch request
       when 'I-have-a-value'  then processNewValue
@@ -37,7 +37,7 @@ adder = (a1, a2, sum) ->
       else throw new Error "Unknown request -- ADDER #{request}"
   me
 
-makeConnector = () ->
+makeConnector = ->
   do (value = false, informant = false, constraints = null) ->
 
     setMyValue = (newval, setter) ->
