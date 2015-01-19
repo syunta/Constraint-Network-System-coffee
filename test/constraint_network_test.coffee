@@ -100,3 +100,30 @@ describe 'Verify connector', ->
       ((c 'connect') target2)
       assert (car (c 'constraints')) is target2
       assert (cadr (c 'constraints')) is target1
+
+describe 'Verify adder is constaraint', ->
+  describe 'when request is I-have-a-value', ->
+    it 'should set sum 5 as a result of c1 + c2', ->
+      c1 = do makeConnector
+      c2 = do makeConnector
+      sum = do makeConnector
+      adder c1, c2, sum
+      setValue c1, 1, 'tester'
+      setValue c2, 4, 'tester'
+      assert (getValue sum) is 5
+    it 'should set c1 1 as a result of sum - c2', ->
+      c1 = do makeConnector
+      c2 = do makeConnector
+      sum = do makeConnector
+      adder c1, c2, sum
+      setValue sum, 5, 'tester'
+      setValue c2, 4, 'tester'
+      assert (getValue c1) is 1
+    it 'should set c2 1 as a result of sum - c1', ->
+      c1 = do makeConnector
+      c2 = do makeConnector
+      sum = do makeConnector
+      adder c1, c2, sum
+      setValue sum, 5, 'tester'
+      setValue c1, 1, 'tester'
+      assert (getValue c2) is 4
