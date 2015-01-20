@@ -10,6 +10,7 @@ forEachExcept = require('../src/cons_list_proc').forEachExcept
 
 makeConnector = require('../src/constraint_network').makeConnector
 adder = require('../src/constraint_network').adder
+constant = require('../src/constraint_network').constant
 doNothing = require('./do_nothing_constraint').doNothing
 informAboutValue = require('../src/constraint_network').informAboutValue
 informAboutNoValue = require('../src/constraint_network').informAboutNoValue
@@ -150,3 +151,9 @@ describe 'Verify adder is constaraint', ->
       forgetValue c1, 'tester'
       assert (hasValue c1) is false
       assert (hasValue c2) is true
+
+describe 'Verify constant is constaraint', ->
+  it 'should return 10', ->
+    c = do makeConnector
+    constant 10, c
+    assert (getValue c) is 10

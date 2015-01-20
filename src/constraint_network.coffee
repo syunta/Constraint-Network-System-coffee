@@ -56,6 +56,13 @@ adder = (a1, a2, sum) ->
   (connect sum, me)
   me
 
+constant = (value, connector) ->
+  me = (request) ->
+    throw new Error "Unknown request -- CONSTANT #{request}"
+  (connect connector, me)
+  (setValue connector, value, me)
+  me
+
 makeConnector = ->
   do (value = false, informant = false, constraints = null) ->
 
@@ -101,6 +108,7 @@ makeConnector = ->
 
 module.exports.makeConnector = makeConnector
 module.exports.adder = adder
+module.exports.constant = constant
 module.exports.informAboutValue = informAboutValue
 module.exports.informAboutNoValue = informAboutNoValue
 module.exports.hasValue = hasValue
