@@ -97,6 +97,20 @@ multiplier = (m1, m2, product) ->
   (connect product, me)
   me
 
+probe = (name, connector) ->
+  printProbe = (value) ->
+    console.log "Probe: #{name} = #{value}"
+  processNewValue = ->
+    (printProbe (getValue connector))
+  processForgetValue = ->
+    (printProbe "?")
+  me = (request) ->
+    switch request
+      when 'I-have-a-value'  then do processNewValue
+      when 'I-lost-my-value' then do processForgetValue
+      else throw new Error "Unknown request -- PROBE #{request}"
+  (connect connector, me)
+  me
 
 makeConnector = ->
   do (value = false, informant = false, constraints = null) ->
@@ -145,6 +159,7 @@ module.exports.makeConnector = makeConnector
 module.exports.adder = adder
 module.exports.constant = constant
 module.exports.multiplier = multiplier
+module.exports.probe = probe
 module.exports.informAboutValue = informAboutValue
 module.exports.informAboutNoValue = informAboutNoValue
 module.exports.hasValue = hasValue

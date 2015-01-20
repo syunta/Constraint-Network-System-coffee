@@ -12,6 +12,7 @@ makeConnector = require('../src/constraint_network').makeConnector
 adder = require('../src/constraint_network').adder
 constant = require('../src/constraint_network').constant
 multiplier = require('../src/constraint_network').multiplier
+probe = require('../src/constraint_network').probe
 doNothing = require('./do_nothing_constraint').doNothing
 informAboutValue = require('../src/constraint_network').informAboutValue
 informAboutNoValue = require('../src/constraint_network').informAboutNoValue
@@ -216,3 +217,15 @@ describe 'Verify multiplier is constaraint', ->
       forgetValue c1, 'tester'
       assert (hasValue c1) is false
       assert (hasValue c2) is true
+
+describe 'Verify probe', ->
+  describe 'when request is I-have-a-value', ->
+    it 'should print Probe : Connector = 10. Check with your own eyes!', ->
+      c = do makeConnector
+      probe "Connector", c
+      assert.ok (setValue c, 10, 'tester')
+    it 'should print Probe : Connector = ?. Check with your own eyes!', ->
+      c = do makeConnector
+      probe "Connector", c
+      setValue c, 10, 'tester'
+      assert.ok (forgetValue c, 'tester')
