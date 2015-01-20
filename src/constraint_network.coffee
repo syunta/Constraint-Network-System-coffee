@@ -81,7 +81,12 @@ multiplier = (m1, m2, product) ->
                (getValue product) / (getValue m2),
                me
 
-  processForgetValue = -> #TODO
+  processForgetValue = ->
+    (forgetValue product, me)
+    (forgetValue m1, me)
+    (forgetValue m2, me)
+    do processNewValue
+
   me = (request) ->
     switch request
       when 'I-have-a-value'  then do processNewValue

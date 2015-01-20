@@ -193,3 +193,26 @@ describe 'Verify multiplier is constaraint', ->
       setValue c2, 5, 'tester'
       setValue product, 10, 'tester'
       assert (getValue c1) is 2
+  describe 'when request is I-lost-my-value', ->
+    it 'should set value false', ->
+      c1 = do makeConnector
+      c2 = do makeConnector
+      product = do makeConnector
+      multiplier c1, c2, product
+      setValue c1, 2, 'tester'
+      setValue c2, 5, 'tester'
+      forgetValue c1, 'tester'
+      forgetValue c2, 'tester'
+      assert (hasValue c1) is false
+      assert (hasValue c2) is false
+      assert (hasValue product) is false
+    it 'should be same setter to forget value', ->
+      c1 = do makeConnector
+      c2 = do makeConnector
+      product = do makeConnector
+      multiplier c1, c2, product
+      setValue c1, 2, 'tester'
+      setValue c2, 5, 'tester'
+      forgetValue c1, 'tester'
+      assert (hasValue c1) is false
+      assert (hasValue c2) is true
