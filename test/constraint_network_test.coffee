@@ -11,6 +11,7 @@ forEachExcept = require('../src/cons_list_proc').forEachExcept
 makeConnector = require('../src/constraint_network').makeConnector
 adder = require('../src/constraint_network').adder
 constant = require('../src/constraint_network').constant
+multiplier = require('../src/constraint_network').multiplier
 doNothing = require('./do_nothing_constraint').doNothing
 informAboutValue = require('../src/constraint_network').informAboutValue
 informAboutNoValue = require('../src/constraint_network').informAboutNoValue
@@ -157,3 +158,38 @@ describe 'Verify constant is constaraint', ->
     c = do makeConnector
     constant 10, c
     assert (getValue c) is 10
+
+describe 'Verify multiplier is constaraint', ->
+  describe 'when request is I-have-a-value', ->
+    it 'should set product 0 as a result of c1 * 0', ->
+      c1 = do makeConnector
+      c2 = do makeConnector
+      product = do makeConnector
+      multiplier c1, c2, product
+      setValue c1, 2, 'tester'
+      setValue c2, 0, 'tester'
+      assert (getValue product) is 0
+    it 'should set product 10 as a result of c1 * c2', ->
+      c1 = do makeConnector
+      c2 = do makeConnector
+      product = do makeConnector
+      multiplier c1, c2, product
+      setValue c1, 2, 'tester'
+      setValue c2, 5, 'tester'
+      assert (getValue product) is 10
+    it 'should set c2 5 as a result of product / c1', ->
+      c1 = do makeConnector
+      c2 = do makeConnector
+      product = do makeConnector
+      multiplier c1, c2, product
+      setValue c1, 2, 'tester'
+      setValue product, 10, 'tester'
+      assert (getValue c2) is 5
+    it 'should set c1 2 as a result of product / c2', ->
+      c1 = do makeConnector
+      c2 = do makeConnector
+      product = do makeConnector
+      multiplier c1, c2, product
+      setValue c2, 5, 'tester'
+      setValue product, 10, 'tester'
+      assert (getValue c1) is 2

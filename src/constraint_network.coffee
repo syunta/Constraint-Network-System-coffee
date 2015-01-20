@@ -63,6 +63,36 @@ constant = (value, connector) ->
   (setValue connector, value, me)
   me
 
+multiplier = (m1, m2, product) ->
+  processNewValue = ->
+    if ((hasValue m1) and ((getValue m1) is 0)) or
+       ((hasValue m2) and ((getValue m2) is 0))
+      setValue product, 0, me
+    else if (hasValue m1) and (hasValue m2)
+      setValue product,
+               (getValue m1) * (getValue m2),
+               me
+    else if (hasValue product) and (hasValue m1)
+      setValue m2,
+               (getValue product) / (getValue m1),
+               me
+    else if (hasValue product) and (hasValue m2)
+      setValue m1,
+               (getValue product) / (getValue m2),
+               me
+
+  processForgetValue = -> #TODO
+  me = (request) ->
+    switch request
+      when 'I-have-a-value'  then do processNewValue
+      when 'I-lost-my-value' then do processForgetValue
+      else throw new Error "Unknown request -- MULTIPLIER #{request}"
+  (connect m1, me)
+  (connect m2, me)
+  (connect product, me)
+  me
+
+
 makeConnector = ->
   do (value = false, informant = false, constraints = null) ->
 
@@ -109,6 +139,7 @@ makeConnector = ->
 module.exports.makeConnector = makeConnector
 module.exports.adder = adder
 module.exports.constant = constant
+module.exports.multiplier = multiplier
 module.exports.informAboutValue = informAboutValue
 module.exports.informAboutNoValue = informAboutNoValue
 module.exports.hasValue = hasValue
